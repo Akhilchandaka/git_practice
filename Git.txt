@@ -1,0 +1,544 @@
+# 1. Go to your project folder
+cd "C:\Users\hello\Desktop\Akhil\git_practice"
+
+# 2. Initialize git (only if not already done)
+git init
+
+# 3. Add all files to staging area
+git add .
+
+# 4. Commit your changes
+git commit -m "Initial commit"
+
+# 5. Connect your local repo to GitHub
+git remote add origin https://github.com/<your-username>/<your-repo>.git
+
+# 6. Tell Git to remember your token
+git config --global credential.helper store
+
+# 7. Push your code to GitHub
+git push -u origin main
+
+
+
+--------------------------------------------------------------------
+Absolutely, Akhil! Let’s create a **complete, interview-and-class-ready Git notes guide** that you can use to **teach someone or revise yourself**. I’ll include: **concepts, commands, examples, and practical explanations** in a structured way.
+
+---
+
+# **Git Notes: Complete Guide**
+
+---
+
+## 1️⃣ **What is Git?**
+
+**Definition:**
+
+> Git is a **distributed version control system** (DVCS) that tracks changes to your code or files, allows multiple developers to collaborate, and helps maintain history of all changes.
+
+**Real-time example:**
+
+> Imagine you’re working on a project with 3 developers. Developer A adds a new feature, Developer B fixes a bug, and Developer C updates documentation. Without Git, tracking who changed what and reverting mistakes would be chaotic. Git tracks **every change**, allows merging updates, and provides a **timeline of commits**.
+
+**Key Features:**
+
+* Version control for files/projects
+* Branching and merging
+* Collaboration via remote repositories (GitHub, GitLab, Bitbucket)
+* History tracking and rollback
+
+---
+
+## 2️⃣ **Basic Git Commands**
+
+### 🔹 **Initialize a repository**
+
+```bash
+git init
+```
+
+* Creates a new Git repo in the current folder.
+* Example: `git init my_project`
+
+---
+
+### 🔹 **Check status**
+
+```bash
+git status
+```
+
+* Shows **changes staged, unstaged, or untracked files**.
+* Example: You added a new file but haven’t staged it → it will show as `untracked`.
+
+---
+
+### 🔹 **Add files to staging**
+
+```bash
+git add <file_name>
+git add .
+```
+
+* Stages changes to be **committed**.
+* `.` → stages all files in the current directory.
+
+---
+
+### 🔹 **Commit changes**
+
+```bash
+git commit -m "Your commit message"
+```
+
+* Saves staged changes to the local repository.
+* Commit messages should be **clear and descriptive**.
+* Example: `git commit -m "Added login feature"`
+
+---
+
+### 🔹 **View commit history**
+
+```bash
+git log
+git log --oneline
+```
+
+* `git log` → full commit history
+* `git log --oneline` → shows commit hash + message in single line
+
+---
+
+### 🔹 **Check a specific commit**
+
+```bash
+git show <commit_hash>
+```
+
+* Displays **changes made in a specific commit**.
+* Example: `git show b2faad1ef2297db2dc82bc4537c9aa2b051201df`
+
+---
+
+### 🔹 **Undo changes**
+
+1. **Unstaged changes (working directory)**
+
+```bash
+git checkout -- <file_name>
+```
+
+2. **Remove staged changes**
+
+```bash
+git reset <file_name>
+```
+
+3. **Undo last commit (keep changes)**
+
+```bash
+git reset --soft HEAD~1
+```
+
+4. **Undo last commit (discard changes)**
+
+```bash
+git reset --hard HEAD~1
+```
+
+---
+
+## 3️⃣ **Branching**
+
+### 🔹 **Create a new branch**
+
+```bash
+git branch <branch_name>
+```
+
+* Example: `git branch feature1` → creates a branch called `feature1`.
+
+### 🔹 **Switch to a branch**
+
+```bash
+git checkout <branch_name>
+```
+
+* Example: `git checkout feature1` → move from master/main to feature1.
+
+### 🔹 **Create & switch simultaneously**
+
+```bash
+git checkout -b <branch_name>
+```
+
+* Example: `git checkout -b bugfix_login`
+
+### 🔹 **List branches**
+
+```bash
+git branch
+git branch -a   # lists local and remote branches
+```
+
+### 🔹 **Merge branch**
+
+```bash
+git checkout main
+git merge feature1
+```
+
+* Combines changes from `feature1` into `main`.
+* Resolve conflicts if they occur.
+
+### 🔹 **Delete a branch**
+
+```bash
+git branch -d <branch_name>   # if merged
+git branch -D <branch_name>   # force delete
+```
+
+---
+
+## 4️⃣ **Branch to Branch Jumping**
+
+**Scenario:**
+
+> You are on `main` and want to switch to `feature1` to work on new code.
+
+**Commands:**
+
+```bash
+git checkout feature1   # switch branch
+git status              # check branch and changes
+git log --oneline       # check commit history on this branch
+```
+
+**Tip:**
+
+* Always commit or stash changes before switching branches.
+* `git stash` temporarily saves your work:
+
+```bash
+git stash      # saves changes
+git stash pop  # applies them back
+```
+
+---
+
+## 5️⃣ **Working with Remote Repositories**
+
+### 🔹 **Add remote**
+
+```bash
+git remote add origin <repo_url>
+```
+
+### 🔹 **Push changes**
+
+```bash
+git push -u origin main
+git push origin feature1
+```
+
+### 🔹 **Pull changes**
+
+```bash
+git pull origin main
+```
+
+* Syncs local repo with remote repo.
+
+### 🔹 **Fetch changes**
+
+```bash
+git fetch
+```
+
+* Downloads commits but doesn’t merge automatically.
+
+---
+
+## 6️⃣ **Git in Real-Time Example (Effective Way)**
+
+**Scenario:**
+
+> You are working on a data analytics project. Your main branch has stable code. You want to add a new feature to generate daily sales reports.
+
+**Steps in Git:**
+
+1. `git checkout -b feature/daily-sales` → create a new branch
+2. Write code and `git add .` → stage changes
+3. `git commit -m "Added daily sales report feature"` → commit changes
+4. `git push origin feature/daily-sales` → push to remote
+5. After review, merge to main:
+
+   ```bash
+   git checkout main
+   git merge feature/daily-sales
+   git push origin main
+   ```
+6. Delete feature branch: `git branch -d feature/daily-sales`
+
+**Effect:**
+
+* Main branch stays stable.
+* Feature branch can be independently developed and tested.
+* Team collaboration becomes easy and organized.
+
+---
+
+## 7️⃣ **Extra Useful Commands**
+
+| Command                           | Description                            |
+| --------------------------------- | -------------------------------------- |
+| `git diff`                        | Show unstaged changes                  |
+| `git diff --staged`               | Show staged changes                    |
+| `git stash`                       | Temporarily save changes               |
+| `git reset HEAD <file>`           | Unstage a file                         |
+| `git revert <commit>`             | Undo a commit without changing history |
+| `git log --graph --oneline --all` | Visual graph of branches and commits   |
+
+---
+
+## 8️⃣ **Best Practices**
+
+* Commit frequently with descriptive messages.
+* Use **feature branches** for new features or bug fixes.
+* Keep `main` branch stable.
+* Always pull latest changes before starting work.
+* Use **stashing** before switching branches.
+* Resolve conflicts carefully.
+
+----------------------------------------------------------------------------------------------------
+Perfect, Akhil! Let’s **upgrade your Git notes** to include **`git cherry-pick`** and **`git rebase`**, along with diagrams/explanations so it’s fully class-ready and interview-proof. I’ll integrate it with what we already have.
+
+---
+
+# **Git Notes: Complete Guide (Advanced with Cherry-Pick & Rebase)**
+
+---
+
+## 1️⃣ **What is Git?**
+
+*(same as before)*
+
+> Git is a **distributed version control system** (DVCS) to track code changes, collaborate in teams, and maintain project history.
+
+**Real-Time Example:**
+
+> Multiple developers work on a project simultaneously — Git allows tracking changes, merging updates, and rolling back mistakes efficiently.
+
+---
+
+## 2️⃣ **Basic Git Commands**
+
+*(already explained: init, add, commit, log, checkout, branch, merge, stash, etc.)*
+
+---
+
+## 3️⃣ **Branching and Switching**
+
+* `git branch <branch_name>` → create
+* `git checkout <branch_name>` → switch
+* `git checkout -b <branch_name>` → create & switch
+* `git merge <branch>` → merge branch into current
+* `git branch -d <branch>` → delete
+
+**Tip:** Commit or stash changes before switching branches.
+
+---
+
+## 4️⃣ **Cherry-Pick**
+
+### 🔹 **Concept:**
+
+> `git cherry-pick` allows you to **apply a specific commit from one branch into another** without merging the entire branch.
+> Useful when you want **a hotfix** or a single feature from another branch.
+
+### 🔹 **Command:**
+
+```bash
+git checkout main
+git cherry-pick <commit_hash>
+```
+
+### 🔹 **Example Scenario:**
+
+* You have a bugfix commit in `feature1` branch.
+* You want to apply only that fix to `main` without merging the full `feature1`.
+
+```bash
+git checkout main
+git cherry-pick b2faad1
+```
+
+✅ **Interview Tip:**
+
+> “Cherry-pick is useful for selectively moving commits between branches, especially for hotfixes or urgent patches.”
+
+---
+
+## 5️⃣ **Git Rebase**
+
+### 🔹 **Concept:**
+
+> `git rebase` **moves or reapplies commits from one branch onto another**, creating a linear history.
+> It’s like “replaying” your commits on top of another branch.
+
+### 🔹 **Command:**
+
+```bash
+git checkout feature1
+git rebase main
+```
+
+### 🔹 **Explanation:**
+
+1. Suppose `main` has new commits while you worked on `feature1`.
+2. Rebase applies `feature1` commits **on top of the updated main**, making history linear.
+3. Conflicts may appear — resolve them, then continue:
+
+```bash
+git add <file>
+git rebase --continue
+```
+
+### 🔹 **Difference Between Merge & Rebase:**
+
+| Merge                       | Rebase                          |
+| --------------------------- | ------------------------------- |
+| Creates a merge commit      | Linear history, no merge commit |
+| Keeps history of branches   | Rewrites branch history         |
+| Easy to see branch topology | Clean, linear commit history    |
+
+---
+
+### 🔹 **Interactive Rebase (Advanced)**
+
+* Edit, reorder, squash commits:
+
+```bash
+git rebase -i HEAD~3
+```
+
+* `pick` → keep commit
+* `squash` → combine commits
+* Useful for cleaning commit history before pushing.
+
+✅ **Interview Tip:**
+
+> “Rebase is commonly used to maintain a clean Git history and apply local commits on top of updated main/master branch.”
+
+---
+
+## 6️⃣ **Practical Workflow Example (Full)**
+
+**Scenario:** Daily workflow for feature development and hotfix:
+
+1. Start on main:
+
+```bash
+git checkout main
+git pull origin main
+```
+
+2. Create a feature branch:
+
+```bash
+git checkout -b feature/daily-report
+```
+
+3. Work, stage, and commit:
+
+```bash
+git add .
+git commit -m "Added daily sales report"
+```
+
+4. Someone added a hotfix on main. Rebase your branch:
+
+```bash
+git checkout feature/daily-report
+git rebase main
+```
+
+5. Push feature branch:
+
+```bash
+git push origin feature/daily-report
+```
+
+6. Apply a single bugfix from another branch (cherry-pick):
+
+```bash
+git checkout main
+git cherry-pick <commit_hash>
+```
+
+7. Merge feature into main after review:
+
+```bash
+git checkout main
+git merge feature/daily-report
+git push origin main
+```
+
+8. Clean up branch:
+
+```bash
+git branch -d feature/daily-report
+```
+
+---
+
+## 7️⃣ **Quick Reference of Commands**
+
+| Command                    | Use                      |
+| -------------------------- | ------------------------ |
+| `git init`                 | Initialize repo          |
+| `git status`               | Check changes            |
+| `git add <file>`           | Stage file               |
+| `git commit -m "msg"`      | Commit changes           |
+| `git log`                  | Show history             |
+| `git branch`               | List branches            |
+| `git checkout <branch>`    | Switch branch            |
+| `git checkout -b <branch>` | Create & switch          |
+| `git merge <branch>`       | Merge branch             |
+| `git rebase <branch>`      | Reapply commits on top   |
+| `git cherry-pick <hash>`   | Apply specific commit    |
+| `git stash`                | Temporarily save changes |
+| `git push/pull`            | Sync with remote         |
+
+---
+
+## 8️⃣ **Visual Summary of Branches, Rebase & Cherry-Pick**
+
+```
+main:   A --- B --- C
+feature:     D --- E --- F
+
+# Merge
+git checkout main
+git merge feature
+main: A --- B --- C --- M
+feature: D --- E --- F
+
+# Rebase
+git checkout feature
+git rebase main
+feature: A --- B --- C --- D' --- E' --- F'
+main:    A --- B --- C
+
+# Cherry-pick
+git checkout main
+git cherry-pick E
+main: A --- B --- C --- E'
+```
+
+✅ Shows clearly how **rebase keeps history linear** and **cherry-pick applies only selected commits**.
+
+---
+
+
+
